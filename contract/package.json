@@ -1,0 +1,13 @@
+{
+  "name": "fuel-token",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "robin",
+  "license": "MIT",
+  "scripts": {
+    "dev": "fuels dev"
+  },
+  "dependencies": {
+    "fuels": "^0.81.0"
+  }
+}
