@@ -5,7 +5,7 @@ export default createConfig({
   useBuiltinForc: false,
   useBuiltinFuelCore: true,
   autoStartFuelCore: true,
-  contracts: ['./contract'],
+  contracts: ['./contracts/fuel-token'],
   output: './src/contract-types',
   chainConfig: './chainConfig.json',
 });
