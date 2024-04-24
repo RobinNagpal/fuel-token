@@ -10,18 +10,27 @@
     "fuels:dev": "fuels dev"
   },
   "dependencies": {
+    "@fuel-wallet/sdk": "^0.16.1",
     "fuels": "^0.81.0",
     "next": "14.2.2",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@fuels/eslint-plugin": "^0.18.1",
+    "@fuels/prettier-config": "^0.18.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^7.7.1",
+    "@typescript-eslint/parser": "^7.7.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8",
+    "prettier": "^3.2.5",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
