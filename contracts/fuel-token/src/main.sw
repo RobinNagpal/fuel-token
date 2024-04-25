@@ -36,6 +36,7 @@ use std::{
     hash::Hash,
     storage::storage_string::*,
     string::String,
+    constants::DEFAULT_SUB_ID
 };
 
 storage {
@@ -517,10 +518,11 @@ impl Constructor for Contract {
     ///     assert(src_5_abi.owner() == State::Initialized(owner));
     /// }
     /// ```
+
     #[storage(read, write)]
     fn constructor(owner: Identity) {
         initialize_ownership(owner);
-    }
+    }   
 }
 
 
