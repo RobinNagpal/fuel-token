@@ -1,2 +1,2 @@
 [workspace]
-members = ["./contracts/fuel-token"]
+members = ["./contracts/fuel-token", "./predicates/simple"]

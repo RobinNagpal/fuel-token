@@ -6,6 +6,7 @@ export default createConfig({
   useBuiltinFuelCore: true,
   autoStartFuelCore: true,
   contracts: ['./contracts/fuel-token'],
+  predicates: ['./predicates/simple'],
   output: './src/contract-types',
   chainConfig: './chainConfig.json',
 });

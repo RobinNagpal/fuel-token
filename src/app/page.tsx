@@ -5,7 +5,7 @@ import { Button } from '@/components/Button';
 import { ConnectButton } from '@/components/ConnectButton';
 import { WalletDisplay } from '@/components/WalletDisplay';
 import { CONTRACT_ID, PROVIDER_URL } from '@/config';
-import { FuelTokenAbi__factory } from '@/contract-types';
+import { FuelTokenAbi__factory, SimpleAbi__factory } from '@/contract-types';
 import { useActiveWallet } from '@/hooks/useActiveWallet';
 import { useGetFuelTokenState } from '@/hooks/useGetFuelTokenState';
 import { useMintTokens } from '@/hooks/useMintTokens';
@@ -51,6 +51,9 @@ export default function Home() {
       .call();
   };
 
+  const createPredicate = async () => {
+    let predicate = SimpleAbi__factory.createInstance();
+  };
   const getTokenSupply = async () => {
     if (!browserWallet?.getBalance()) return;
     const contract = FuelTokenAbi__factory.connect(CONTRACT_ID, browserWallet);

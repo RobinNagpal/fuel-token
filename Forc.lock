@@ -12,6 +12,11 @@ dependencies = [
 ]
 
 [[package]]
+name = "simple"
+source = "member"
+dependencies = ["std"]
+
+[[package]]
 name = "standards"
 source = "git+https://github.com/FuelLabs/sway-standards?tag=v0.4.1#0a6f3ba0bce036a0ce61f15ed4480c71af32d3aa"
 dependencies = ["std"]
