@@ -52,8 +52,11 @@ export default function Home() {
   };
 
   const createPredicate = async () => {
-    let predicate = SimpleAbi__factory.createInstance();
+    if (!provider) return;
+    let predicate = SimpleAbi__factory.createInstance(provider);
+    console.log(`predicate`, predicate);
   };
+
   const getTokenSupply = async () => {
     if (!browserWallet?.getBalance()) return;
     const contract = FuelTokenAbi__factory.connect(CONTRACT_ID, browserWallet);
@@ -68,6 +71,7 @@ export default function Home() {
     console.log(`result2 value`, result2.value?.toNumber());
     console.log(`result2 value`, result2.value?.abs());
   };
+
   const showProviderError =
     (!isLoading && provider && provider.url !== PROVIDER_URL) || isError;
 
@@ -90,6 +94,9 @@ export default function Home() {
       </div>
       <div className="mt-24">
         <Button onClick={() => getTokenSupply()}>Get Token Supply</Button>
+      </div>
+      <div className="mt-24">
+        <Button onClick={() => createPredicate()}>Create Predicate</Button>
       </div>
       <div className="mt-24">
         <Button onClick={() => mintTokens()}>Mint Tokens</Button>
