@@ -6,6 +6,7 @@ import { CONTRACT_ID, PROVIDER_URL } from '@/config';
 import { FuelTokenAbi__factory } from '@/contract-types';
 
 import { TicTacToeQueryKeys } from '@/queryKeys';
+import { ZeroBytes32 } from 'fuels';
 
 export const useGetFuelTokenState = () => {
   const { wallet, isError, isLoading } = useWallet();
@@ -20,11 +21,12 @@ export const useGetFuelTokenState = () => {
         return null;
       }
 
-      const contract = FuelTokenAbi__factory.connect(
-        CONTRACT_ID,
-        wallet
-      );
-      const result = await contract.functions.total_assets().simulate();
+      const contract = FuelTokenAbi__factory.connect(CONTRACT_ID, wallet);
+      const result = await contract.functions
+        .total_supply({
+          bits: ZeroBytes32,
+        })
+        .simulate();
       return result.value ?? null;
     },
     enabled: !!wallet && !isError && !isLoading,

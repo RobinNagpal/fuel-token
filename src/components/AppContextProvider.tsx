@@ -1,4 +1,4 @@
-import {useGetFuelTokenState} from "@/hooks/useGetFuelTokenState";
+import { useGetFuelTokenState } from '@/hooks/useGetFuelTokenState';
 import { createContext, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
 
@@ -24,14 +24,14 @@ type AppContextProviderProps = {
 };
 
 export const AppContextProvider = ({ children }: AppContextProviderProps) => {
-  const {fuelTokensState, isLoading } = useGetFuelTokenState();
+  const { fuelTokensState, isLoading } = useGetFuelTokenState();
   const [appContext, setAppContext] = useState<AppContextObject>({
-    isLoading: true,
+    isLoading: false,
   });
 
-  if (isLoading) {
-    return null;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <AppContext.Provider

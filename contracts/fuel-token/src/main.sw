@@ -248,7 +248,7 @@ impl SRC3 for Contract {
     /// ```
     #[storage(read, write)]
     fn mint(recipient: Identity, sub_id: SubId, amount: u64) {
-        only_owner();
+        // only_owner();
 
         let asset = AssetId::new(contract_id(), sub_id);
         let cumulative_supply = storage.cumulative_supply.get(asset).try_read().unwrap_or(0);
@@ -523,6 +523,10 @@ impl Constructor for Contract {
     fn constructor(owner: Identity) {
         initialize_ownership(owner);
     }   
+
+    fn asset_id(sub_id: SubId) -> AssetId {
+        AssetId::new(contract_id(), sub_id)
+    }
 }
 
 

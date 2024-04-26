@@ -4,12 +4,19 @@ import { useAppContext } from '@/components/AppContextProvider';
 import { Button } from '@/components/Button';
 import { ConnectButton } from '@/components/ConnectButton';
 import { WalletDisplay } from '@/components/WalletDisplay';
-import { PROVIDER_URL } from '@/config';
+import { CONTRACT_ID, PROVIDER_URL } from '@/config';
+import { FuelTokenAbi__factory } from '@/contract-types';
 import { useActiveWallet } from '@/hooks/useActiveWallet';
 import { useGetFuelTokenState } from '@/hooks/useGetFuelTokenState';
 import { useMintTokens } from '@/hooks/useMintTokens';
-import { useAccounts, useIsConnected, useProvider } from '@fuels/react';
-import { BaseAssetId, encrypt, decrypt, bn } from 'fuels';
+import {
+  useAccounts,
+  useIsConnected,
+  useProvider,
+  useWallet,
+} from '@fuels/react';
+import { BaseAssetId, encrypt, decrypt, bn, ZeroBytes32 } from 'fuels';
+import { useEffect } from 'react';
 
 export default function Home() {
   const { wallet, walletBalance } = useActiveWallet();
@@ -18,8 +25,46 @@ export default function Home() {
   const { isConnected, isLoading: isConnectedLoading } = useIsConnected();
   const { accounts } = useAccounts();
   const { fuelTokensState } = useGetFuelTokenState();
-  const mutation = useMintTokens({ bits: wallet?.address?.toB256() as string });
+  const addressInput = { value: wallet?.address.toB256() };
+  const mutation = useMintTokens({
+    Address: {
+      bits: addressInput.value!,
+    },
+  });
 
+  const { wallet: browserWallet } = useWallet();
+  const mintTokens = async () => {
+    if (!wallet) throw new Error(`Cannot increment if wallet is ${wallet}`);
+    const contract = FuelTokenAbi__factory.connect(CONTRACT_ID, wallet);
+    const addressInput = { value: wallet?.address.toB256() };
+    // await contract.functions.set_decimals(ZeroBytes32, 10).call();
+    await contract.functions
+      .mint(
+        {
+          Address: {
+            bits: addressInput.value!,
+          },
+        },
+        ZeroBytes32,
+        1000
+      )
+      .call();
+  };
+
+  const getTokenSupply = async () => {
+    if (!browserWallet?.getBalance()) return;
+    const contract = FuelTokenAbi__factory.connect(CONTRACT_ID, browserWallet);
+
+    const result = await contract.functions.asset_id(ZeroBytes32).get();
+    console.log(`result`, result);
+    console.log(`result value`, result.value);
+    console.log(`result value`, result.value);
+
+    const result2 = await contract.functions.total_supply(result.value).get();
+    console.log(`result2`, result2);
+    console.log(`result2 value`, result2.value?.toNumber());
+    console.log(`result2 value`, result2.value?.abs());
+  };
   const showProviderError =
     (!isLoading && provider && provider.url !== PROVIDER_URL) || isError;
 
@@ -38,10 +83,13 @@ export default function Home() {
           <div>{`Your wallet is not connected to the correct network.  Please connect to ${PROVIDER_URL}`}</div>
         ) : null}
 
-        <div>{fuelTokensState?.toString() || 'Nothing'}</div>
+        <div>{fuelTokensState?.toString()}</div>
       </div>
       <div className="mt-24">
-        <Button onClick={() => mutation.mutate()}>Mint Tokens</Button>
+        <Button onClick={() => getTokenSupply()}>Get Token Supply</Button>
+      </div>
+      <div className="mt-24">
+        <Button onClick={() => mintTokens()}>Mint Tokens</Button>
       </div>
     </main>
   );

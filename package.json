@@ -10,10 +10,10 @@
     "fuels:dev": "fuels dev"
   },
   "dependencies": {
-    "@fuel-wallet/sdk": "^0.15.2",
-    "@fuels/react": "^0.15.3",
+    "@fuel-wallet/sdk": "^0.17.0-master-e18231a",
+    "@fuels/react": "^0.18.1",
     "@tanstack/react-query": "^5.32.0",
-    "fuels": "^0.76.0",
+    "fuels": "^0.82.0",
     "next": "14.2.2",
     "react": "^18",
     "react-dom": "^18",
@@ -21,8 +21,8 @@
     "react-use": "^17.5.0"
   },
   "devDependencies": {
-    "@fuels/eslint-plugin": "^0.16.0",
-    "@fuels/prettier-config": "^0.16.0",
+    "@fuels/eslint-plugin": "^0.18.1",
+    "@fuels/prettier-config": "^0.18.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
